@@ -1,17 +1,21 @@
-public class LogInAdmin extends LogIn {
-    private boolean userIsAdmin;
-    @Override
-    public void log (User user) {
-        this.userIsAdmin = verifyIfTheUserIsAdmin(user);
-        if(!userIsAdmin){
-            return;
-        }
-        System.out.println("Has access to the website in admin mode");
-        // Logic
+public class LogInAdmin implements ILogin {
+    private IDatabase database;
+
+    public LogInAdmin(IDatabase database) {
+        this.database = database;
     }
-    private boolean verifyIfTheUserIsAdmin(User user){
-        // Do something
+
+    private boolean verifyIfAdmin(User user) {
+        // lógica para verificar si es admin
+        return true;
+    }
+
+    @Override
+    public boolean authenticate(User user) {
+        if (!verifyIfAdmin(user)) {
+            return false;
+        }
+        database.insertUser(user);
         return true;
     }
 }
-

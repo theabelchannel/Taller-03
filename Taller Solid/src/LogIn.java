@@ -1,11 +1,14 @@
-public class LogIn {
-    public void log (User user) {
-        System.out.println("Has access to the website");
-        insertUserInDatabase(user);
-        // Logic
+public class LogIn implements ILogin {
+    private IDatabase database;
+
+    public LogIn(IDatabase database) {
+        this.database = database;
     }
-    public void insertUserInDatabase(User user){
-        // Insert user in database
+
+    @Override
+    public boolean authenticate(User user) {
+        // lógica de autenticación básica
+        database.insertUser(user);
+        return true;
     }
 }
-
